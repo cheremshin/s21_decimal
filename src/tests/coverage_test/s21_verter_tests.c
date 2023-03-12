@@ -2,13 +2,31 @@
 
 
 START_TEST(test_floor) {
-      s21_decimal test_value_1 = {.bits = {1, 2, 3, 917504}};  
-      s21_decimal test_value_2 = {.bits = {1, 2, 3, -2146566144}};
-      s21_decimal test_value_3 = {.bits = {33, 2, 3000, -2146107392}};
+  s21_decimal test_value_1 = {.bits = {1, 2, 3, 917504}};  
+  s21_decimal test_value_2 = {.bits = {1, 2, 3, -2146566144}};
+  s21_decimal test_value_3 = {.bits = {33, 2, 3000, -2146107392}};
 
-      s21_floor(test_value_1, &test_value_1);
-      s21_floor(test_value_2, &test_value_2);
-      s21_floor(test_value_3, &test_value_3);
+  s21_decimal original_1 = {0};
+  s21_decimal original_2 = {0};
+  s21_decimal original_3 = {0};
+  
+  
+  original_1.bits[0] = 0b10000111000110111010;
+
+  original_2.bits[0] = 0b10000111000110111011;
+  original_2.bytes[SIGN] = NEGATIVE;
+
+  original_3.bits[0] = 0b111000;
+  original_3.bytes[SIGN] = NEGATIVE;
+
+
+  ck_assert_int_eq(0, s21_floor(test_value_1, &test_value_1));
+  ck_assert_int_eq(0, s21_floor(test_value_2, &test_value_2));
+  ck_assert_int_eq(0, s21_floor(test_value_3, &test_value_3));
+
+  ck_assert_int_eq(1, s21_is_equal(test_value_1, original_1));
+  ck_assert_int_eq(1, s21_is_equal(test_value_2, original_2));
+  ck_assert_int_eq(1, s21_is_equal(test_value_2, original_2));
 }
 END_TEST
 
