@@ -27,13 +27,12 @@ typedef union s21_extended_decimal {
   }                                                 \
   return 0
 
-#define ADD sum_sign_distribution(big_value_1, big_value_2, &big_result);
-#define SUB sub_sign_distribution(big_value_1, big_value_2, &big_result);
+#define ADD add_set_sign(big_value_1, big_value_2, &big_result);
 #define MUL mul_extended_decimal(big_value_1, big_value_2, &big_result);
 #define DIV div_extended_decimal(big_value_1, big_value_2, &big_result);
 #define MOD mod_extended_decimal(big_value_1, big_value_2, &big_result);
 
-#define MATH_OPERATIONS(operation)                        \
+#define MATH_OPERATION(operation)                        \
   decimal_to_extended_decimal(value_1, &big_value_1);     \
   decimal_to_extended_decimal(value_2, &big_value_2);     \
   cast_to_one_exp(&big_value_1, &big_value_2);            \
@@ -59,8 +58,6 @@ void mod_extended_decimal(s21_extended_decimal value_1, s21_extended_decimal val
 
 int8_t sum_conditions(s21_decimal value_1, s21_decimal value_2,
                       s21_decimal* result);
-int8_t sub_conditions(s21_decimal value_1, s21_decimal value_2,
-                      s21_decimal* result);
 int8_t mul_conditions(s21_decimal value_1, s21_decimal value_2,
                       s21_decimal* result);
 int8_t div_conditions(s21_decimal value_1, s21_decimal value_2,
@@ -69,14 +66,14 @@ int8_t mod_conditions(s21_decimal value_2);
 
 // Sign distribution
 
-void sum_sign_distribution(s21_extended_decimal value_1, s21_extended_decimal value_2,
-                           s21_extended_decimal* result);
-void sub_sign_distribution(s21_extended_decimal value_1, s21_extended_decimal value_2,
+void add_set_sign(s21_extended_decimal value_1, s21_extended_decimal value_2,
                            s21_extended_decimal* result);
 
 // Additional math operators
 
-void division(s21_extended_decimal* value_1, s21_extended_decimal value_2,
+void int_division(s21_extended_decimal* value_1, s21_extended_decimal value_2,
+              s21_extended_decimal* result);
+void fract_division(s21_extended_decimal* value_1, s21_extended_decimal value_2,
               s21_extended_decimal* result);
 void extended_decimal_plus_one(s21_extended_decimal* result);
 void div10_extended_decimal(s21_extended_decimal* value);
@@ -123,7 +120,5 @@ uint8_t get_start_bit_extended_decimal(s21_extended_decimal value);
 void set_status(s21_extended_decimal big_result, s21_decimal* result,
                 int8_t* status);
 
-// Output (remove this)
-void output_big(s21_extended_decimal value);
 
 #endif  // LIB_EXTENDED_DECIMAL_H

@@ -1,6 +1,6 @@
 #include "extended_decimal.h"
 
-void sum_sign_distribution(s21_extended_decimal value_1, s21_extended_decimal value_2,
+void add_set_sign(s21_extended_decimal value_1, s21_extended_decimal value_2,
                            s21_extended_decimal* result) {
   if (value_1.bytes[BIG_SIGN] ^ value_2.bytes[BIG_SIGN]) {
     if (mantissa_comparison_extended_decimal(value_1, value_2) == -1) {
@@ -13,23 +13,6 @@ void sum_sign_distribution(s21_extended_decimal value_1, s21_extended_decimal va
   } else {
     sum_extended_decimal(value_1, value_2, result);
     result->bytes[BIG_SIGN] = value_1.bytes[BIG_SIGN];
-  }
-  result->bytes[BIG_EXP] = value_1.bytes[BIG_EXP];
-}
-
-void sub_sign_distribution(s21_extended_decimal value_1, s21_extended_decimal value_2,
-                           s21_extended_decimal* result) {
-  if (value_1.bytes[BIG_SIGN] ^ value_2.bytes[BIG_SIGN]) {
-    sum_extended_decimal(value_1, value_2, result);
-    result->bytes[BIG_SIGN] = value_1.bytes[BIG_SIGN];
-  } else {
-    if (mantissa_comparison_extended_decimal(value_1, value_2) == -1) {
-      sub_extended_decimal(value_1, value_2, result);
-      result->bytes[BIG_SIGN] = value_1.bytes[BIG_SIGN];
-    } else {
-      sub_extended_decimal(value_2, value_1, result);
-      result->bytes[BIG_SIGN] = (value_2.bytes[BIG_SIGN] ? 0 : NEGATIVE);
-    }
   }
   result->bytes[BIG_EXP] = value_1.bytes[BIG_EXP];
 }

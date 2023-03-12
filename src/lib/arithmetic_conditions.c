@@ -14,21 +14,6 @@ int8_t sum_conditions(s21_decimal value_1, s21_decimal value_2,
   return status;
 }
 
-int8_t sub_conditions(s21_decimal value_1, s21_decimal value_2,
-                      s21_decimal *result) {
-  int8_t status = 0;
-
-  if (s21_is_zero(value_1)) {
-    copy_decimal(value_2, result);
-    result->bytes[SIGN] = NEGATIVE;
-  } else if (s21_is_zero(value_2)) {
-    copy_decimal(value_1, result);
-  } else {
-    status = 1;
-  }
-  return status;
-}
-
 int8_t mul_conditions(s21_decimal value_1, s21_decimal value_2,
                       s21_decimal *result) {
   int8_t status = 0;

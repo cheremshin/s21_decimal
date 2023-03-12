@@ -59,6 +59,12 @@ int s21_from_float_to_decimal(float src, s21_decimal *dst) {
     }
 
     write_normalized(dst, (int)decimal, scale);
+
+    s21_extended_decimal extended_dst = {0};
+    decimal_to_extended_decimal(*dst, &extended_dst);
+    clear_trailing_zeros(&extended_dst);
+    extended_decimal_to_decimal(extended_dst, dst);
+
   }
 
   return status;
