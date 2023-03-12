@@ -7,6 +7,8 @@ SRunner *default_srunner_create() {
   srunner_add_suite(sr, s21_comparison_tests());
   srunner_add_suite(sr, s21_other_functions_tests());
   srunner_add_suite(sr, s21_converters_tests());
+  srunner_add_suite(sr, test_from_float_to_decimal());
+
 
   return sr;
 }
