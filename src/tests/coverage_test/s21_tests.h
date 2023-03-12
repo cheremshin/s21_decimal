@@ -14,6 +14,7 @@ static s21_decimal min_dec = {{UINT_MAX, UINT_MAX, UINT_MAX, ~(UINT_MAX / 2)}};
 
 SRunner *default_srunner_create();
 
+Suite *verter_tests(void);
 Suite *s21_arithmetic_tests(void);
 Suite *s21_comparison_tests(void);
 Suite *s21_other_functions_tests(void);
