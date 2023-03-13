@@ -61,7 +61,7 @@ extended_test: $(LIB)
 	./cpp_part
 	mono ./cs_part
 
-gcov_report: $(TEST_SRCS) $(COV_OBJS)
+gcov_report: $(LIB) $(TEST_SRCS) $(COV_OBJS)
 	$(CC) $(FLAGS) $(INC_DIR) $(CCOV) $(LIB) $^ $(CHECK_LIB) -o $(COV_EXEC)
 	@-./$(COV_EXEC)
 	@lcov -q -c -d $(COV_DIR) -o $(COV_INFO) --exclude "$(TEST_DIR)*"
