@@ -23,6 +23,13 @@ START_TEST(from_float_to_decimal_test_0) {
 }
 END_TEST
 
+START_TEST(from_float_to_decimal_test_2) {
+  s21_decimal decimal_number = {0};
+  ck_assert_int_eq(0, s21_from_float_to_decimal(75000000.0, &decimal_number));
+  ck_assert_int_eq(0, s21_from_float_to_decimal(7.5, &decimal_number));
+}
+END_TEST
+
 START_TEST(from_decimal_to_int_test_0) {
   s21_decimal decimal_number = {0};
   int32_t int_number = 0;
@@ -122,6 +129,7 @@ Suite *s21_converters_tests(void) {
   tcase_add_test(tc, from_decimal_to_float_test_0);
 
   tcase_add_test(tc, from_float_to_decimal_test_1);
+  tcase_add_test(tc, from_float_to_decimal_test_2);
   tcase_add_test(tc, from_decimal_to_int_test_1);
   tcase_add_test(tc, from_decimal_to_float_test_1);
 
