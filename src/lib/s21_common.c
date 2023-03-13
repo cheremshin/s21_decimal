@@ -16,20 +16,78 @@ void set_default(s21_decimal *src) {
   }
 }
 
-void write_normalized(s21_decimal *dst, int number, int exponent) {
-  union {
-    int copy;
-    uint8_t copy_bytes[4];
-  } int_union = {number};
+void write_normalized(s21_decimal *dst, double number, int exponent) {
+  int length = get_whole_part_length(number);
+  s21_extended_decimal extended_dst = {0};
 
-  for (size_t i = 0; i < 4; i++) {
-    dst->bytes[i] = int_union.copy_bytes[i];
+  if (length <= FLOAT_DIGITS) {
+    dst->bits[0] = (int)number;
+    dst->bytes[EXP] = exponent;
+    decimal_to_extended_decimal(*dst, &extended_dst);
+  } else {
+    int diff = length - FLOAT_DIGITS;
+
+    number /= pow(10.0, diff);
+    dst->bits[0] = (int)number;
+
+    decimal_to_extended_decimal(*dst, &extended_dst);
+
+    while (diff > 0) {
+      mul10_extended_decimal(&extended_dst);
+      diff--;
+    }
+
+    extended_dst.bytes[BIG_EXP] = exponent;
   }
 
-  dst->bytes[EXP] = exponent;
+  clear_trailing_zeros(&extended_dst);
+  extended_decimal_to_decimal(extended_dst, dst);
 }
 
-int get_number_of_digits(int value) {
-  return (value == 0) ? 1 : log10(value) + 1;
+int get_whole_part_length(double value) {
+  return (value == 0.0) ? 1 : log10(round(value)) + 1;
 }
 
+int check_conditions_to_decimal(float src) {
+  int status = 0;
+
+  if ((src >= MAX_DECIMAL) ||
+      (src <= MIN_DECIMAL) ||
+      (fabsf(src) < pow(10.0f, (float)-28.0)) ||
+      (src == INFINITY) ||
+      (src == -INFINITY)) {
+    status = 1;
+  }
+
+  return status;
+}
+
+double normalize(float src, int *scale) {
+  double power = 10.0;
+
+  double whole_part = round((double)src);
+  double fract_part = (double)src - whole_part;
+
+  int whole_part_size = get_whole_part_length(whole_part);
+  if (whole_part_size < 8) {
+    while (whole_part_size < 8 &&  *scale < 28) {
+      whole_part = whole_part * power + round(fract_part * power);
+      fract_part *= power;
+      fract_part -= round(fract_part);
+      whole_part_size = get_whole_part_length(whole_part);
+      *scale += 1;
+      if (fract_part == 0) break;
+    }
+  }
+
+  whole_part_size = get_whole_part_length(whole_part);
+  if (whole_part_size > FLOAT_DIGITS) {
+    int diff = whole_part_size - FLOAT_DIGITS;
+    whole_part = round(whole_part / pow(power, diff)) * pow(power, diff);
+  } else if (whole_part_size == FLOAT_DIGITS + 1) {
+    whole_part = roundf(whole_part / 10.0L);
+    *scale -= 1;
+  }
+
+  return whole_part;
+}

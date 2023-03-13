@@ -62,11 +62,14 @@ int s21_truncate(s21_decimal value, s21_decimal *result);
 int s21_negate(s21_decimal value, s21_decimal *result);
 
 // Common
-void write_normalized(s21_decimal *dst, int number, int exponent);
+void write_normalized(s21_decimal *dst, double number, int exponent);
 void copy_decimal(s21_decimal value, s21_decimal *result);
-int get_number_of_digits(int value);
+int get_whole_part_length(double value);
 void set_default(s21_decimal *src);
 int s21_is_zero(s21_decimal num);
+
+int check_conditions_to_decimal(float src);
+double normalize(float src, int *scale);
 
 #ifdef __cplusplus
 }
