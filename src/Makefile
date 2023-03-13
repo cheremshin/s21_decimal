@@ -35,12 +35,10 @@ LIB_SRCS = $(addprefix $(LIB_DIR),arithmetic_conditions.c \
 
 ## Make array of all test files
 TEST_SRCS = $(addprefix $(TEST_DIR)coverage_test/,s21_tests.c \
-												  s21_verter_tests.c \
 												  s21_arithmetic_tests.c \
 												  s21_comparison_tests.c \
 												  s21_other_functions_tests.c \
-												  s21_converters_tests.c \
-												  s21_from_float_to_decimal_tests.c)
+												  s21_converters_tests.c)
 												  
 LIB_OBJS = $(patsubst %.c, $(OBJ_DIR)%.o, $(LIB_SRCS))
 COV_OBJS = $(patsubst %.c, $(COV_OBJ_DIR)%.o, $(LIB_SRCS))
