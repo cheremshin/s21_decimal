@@ -28,8 +28,9 @@ void mul_extended_decimal(s21_extended_decimal value_1,
   mantissa_set_default(result);
 
   for (int16_t i = get_start_bit_extended_decimal(value_2); i >= 0; i--) {
-    if (value_2.bits[0] & 1)
+    if (value_2.bits[0] & 1) {
       sum_extended_decimal(value_1, *result, result);
+    }
     left_offset_extended_decimal(&value_1, 1);
     right_offset_extended_decimal(&value_2, 1);
   }

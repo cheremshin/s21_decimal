@@ -74,8 +74,9 @@ double normalize(float src, int *scale) {
       fract_part -= round(fract_part);
       whole_part_size = get_whole_part_length(whole_part);
       *scale += 1;
-      if (fract_part == 0)
+      if (fract_part == 0) {
         break;
+      }
     }
   }
 
