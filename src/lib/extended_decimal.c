@@ -1,7 +1,7 @@
 #include "extended_decimal.h"
 
 void add_set_sign(s21_extended_decimal value_1, s21_extended_decimal value_2,
-                           s21_extended_decimal* result) {
+                  s21_extended_decimal *result) {
   if (value_1.bytes[BIG_SIGN] ^ value_2.bytes[BIG_SIGN]) {
     if (mantissa_comparison_extended_decimal(value_1, value_2) == -1) {
       sub_extended_decimal(value_1, value_2, result);
@@ -17,7 +17,8 @@ void add_set_sign(s21_extended_decimal value_1, s21_extended_decimal value_2,
   result->bytes[BIG_EXP] = value_1.bytes[BIG_EXP];
 }
 
-void cast_to_one_exp(s21_extended_decimal* value_1, s21_extended_decimal* value_2) {
+void cast_to_one_exp(s21_extended_decimal *value_1,
+                     s21_extended_decimal *value_2) {
   int8_t exp_diff = value_1->bytes[BIG_EXP] - value_2->bytes[BIG_EXP];
 
   while (exp_diff < 0) {
@@ -30,7 +31,7 @@ void cast_to_one_exp(s21_extended_decimal* value_1, s21_extended_decimal* value_
   }
 }
 
-void clear_trailing_zeros(s21_extended_decimal* value_1) {
+void clear_trailing_zeros(s21_extended_decimal *value_1) {
   s21_extended_decimal mod = {0};
 
   mod10_extended_decimal(*value_1, &mod);
@@ -59,7 +60,8 @@ uint8_t get_start_byte_extended_decimal(s21_extended_decimal value) {
   return start_byte;
 }
 
-void left_offset_extended_decimal(s21_extended_decimal* value, uint8_t size_offset) {
+void left_offset_extended_decimal(s21_extended_decimal *value,
+                                  uint8_t size_offset) {
   for (int i = 0; i < size_offset; i++) {
     value->bits[5] <<= 1;
     for (int j = 4; j >= 0; j--) {
@@ -70,7 +72,8 @@ void left_offset_extended_decimal(s21_extended_decimal* value, uint8_t size_offs
   }
 }
 
-void right_offset_extended_decimal(s21_extended_decimal* value, uint8_t size_offset) {
+void right_offset_extended_decimal(s21_extended_decimal *value,
+                                   uint8_t size_offset) {
   for (int i = 0; i < size_offset; i++) {
     value->bits[0] >>= 1;
     for (int j = 1; j <= 5; j++) {
@@ -81,8 +84,8 @@ void right_offset_extended_decimal(s21_extended_decimal* value, uint8_t size_off
   }
 }
 
-void set_status(s21_extended_decimal big_result, s21_decimal* result,
-                int8_t* status) {
+void set_status(s21_extended_decimal big_result, s21_decimal *result,
+                int8_t *status) {
   right_offset_extended_decimal(&big_result, 96);
 
   if (*status != 3 && extended_decimal_is_zero(big_result) == 0) {

@@ -8,10 +8,10 @@
  * (if folder doesn't exist, creates one)
  */
 class FileHandler {
- private:
+private:
   const std::string dir = "data";
 
- public:
+public:
   FileHandler();
 
   std::fstream OpenRead(std::string filename);

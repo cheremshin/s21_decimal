@@ -1,7 +1,8 @@
 #include "extended_decimal.h"
 
-void sum_extended_decimal(s21_extended_decimal value_1, s21_extended_decimal value_2,
-                     s21_extended_decimal* result) {
+void sum_extended_decimal(s21_extended_decimal value_1,
+                          s21_extended_decimal value_2,
+                          s21_extended_decimal *result) {
   mantissa_set_default(result);
   uint64_t transfer_bit = 0;
 
@@ -12,28 +13,32 @@ void sum_extended_decimal(s21_extended_decimal value_1, s21_extended_decimal val
   }
 }
 
-void sub_extended_decimal(s21_extended_decimal value_1, s21_extended_decimal value_2,
-                     s21_extended_decimal* result) {
+void sub_extended_decimal(s21_extended_decimal value_1,
+                          s21_extended_decimal value_2,
+                          s21_extended_decimal *result) {
   mantissa_set_default(result);
   inverse_extended_decimal(&value_1);
   sum_extended_decimal(value_1, value_2, result);
   inverse_extended_decimal(result);
 }
 
-void mul_extended_decimal(s21_extended_decimal value_1, s21_extended_decimal value_2,
-                     s21_extended_decimal* result) {
+void mul_extended_decimal(s21_extended_decimal value_1,
+                          s21_extended_decimal value_2,
+                          s21_extended_decimal *result) {
   mantissa_set_default(result);
 
   for (int16_t i = get_start_bit_extended_decimal(value_2); i >= 0; i--) {
-    if (value_2.bits[0] & 1) sum_extended_decimal(value_1, *result, result);
+    if (value_2.bits[0] & 1)
+      sum_extended_decimal(value_1, *result, result);
     left_offset_extended_decimal(&value_1, 1);
     right_offset_extended_decimal(&value_2, 1);
   }
   result->bytes[BIG_EXP] = value_1.bytes[BIG_EXP] + value_2.bytes[BIG_EXP];
 }
 
-void div_extended_decimal(s21_extended_decimal value_1, s21_extended_decimal value_2,
-                     s21_extended_decimal* result) {
+void div_extended_decimal(s21_extended_decimal value_1,
+                          s21_extended_decimal value_2,
+                          s21_extended_decimal *result) {
   mantissa_set_default(result);
   cast_to_one_exp(&value_1, &value_2);
 
@@ -50,8 +55,9 @@ void div_extended_decimal(s21_extended_decimal value_1, s21_extended_decimal val
   }
 }
 
-void mod_extended_decimal(s21_extended_decimal value_1, s21_extended_decimal value_2,
-                     s21_extended_decimal* result) {
+void mod_extended_decimal(s21_extended_decimal value_1,
+                          s21_extended_decimal value_2,
+                          s21_extended_decimal *result) {
   mantissa_set_default(result);
   int_division(&value_1, value_2, result);
   copy_extended_decimal(value_1, result);

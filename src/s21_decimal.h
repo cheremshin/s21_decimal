@@ -23,7 +23,7 @@ typedef union s21_decimal {
 #ifndef _SIZE_T
 #define _SIZE_T
 typedef unsigned long size_t;
-#endif  // _SIZE_T
+#endif // _SIZE_T
 
 #define SIGN 15
 #define EXP 14
@@ -75,4 +75,4 @@ double normalize(float src, int *scale);
 }
 #endif
 
-#endif  // SRC_S21_DECIMAL_H
+#endif // SRC_S21_DECIMAL_H

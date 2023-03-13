@@ -8,14 +8,14 @@
 #include "s21_decimal.h"
 
 class Test {
- public:
+public:
   /**
    * @brief Prints results of s21_decimal functions work
    */
   static void Start();
 
- private:
-  Test(){};  // static class
+private:
+  Test(){}; // static class
 
   static int (*arithm_operators[5])(s21_decimal, s21_decimal, s21_decimal *);
   static int (*cmp_operators[6])(s21_decimal, s21_decimal);

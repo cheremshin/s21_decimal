@@ -19,4 +19,4 @@ Suite *s21_comparison_tests(void);
 Suite *s21_other_functions_tests(void);
 Suite *s21_converters_tests(void);
 
-#endif  // TESTS_S21_TESTS_H
+#endif // TESTS_S21_TESTS_H

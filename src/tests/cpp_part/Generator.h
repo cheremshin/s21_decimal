@@ -3,7 +3,7 @@
 #include <string>
 
 class Generator {
- public:
+public:
   static const std::string filename;
 
   /**
@@ -15,6 +15,6 @@ class Generator {
    */
   static void GenerateData(int min, int max, int count);
 
- private:
-  Generator(){};  // Static class
+private:
+  Generator(){}; // Static class
 };

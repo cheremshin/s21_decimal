@@ -51,10 +51,8 @@ int get_whole_part_length(double value) {
 int check_conditions_to_decimal(float src) {
   int status = 0;
 
-  if ((src >= MAX_DECIMAL) ||
-      (src <= MIN_DECIMAL) ||
-      (fabsf(src) < pow(10.0f, (float)-28.0)) ||
-      (src == INFINITY) ||
+  if ((src >= MAX_DECIMAL) || (src <= MIN_DECIMAL) ||
+      (fabsf(src) < pow(10.0f, (float)-28.0)) || (src == INFINITY) ||
       (src == -INFINITY)) {
     status = 1;
   }
@@ -70,13 +68,14 @@ double normalize(float src, int *scale) {
 
   int whole_part_size = get_whole_part_length(whole_part);
   if (whole_part_size < 8) {
-    while (whole_part_size < 8 &&  *scale < 28) {
+    while (whole_part_size < 8 && *scale < 28) {
       whole_part = whole_part * power + round(fract_part * power);
       fract_part *= power;
       fract_part -= round(fract_part);
       whole_part_size = get_whole_part_length(whole_part);
       *scale += 1;
-      if (fract_part == 0) break;
+      if (fract_part == 0)
+        break;
     }
   }
 

@@ -1,6 +1,6 @@
 #include "extended_decimal.h"
 
-void overflow_round(s21_extended_decimal value, s21_extended_decimal* result) {
+void overflow_round(s21_extended_decimal value, s21_extended_decimal *result) {
   s21_extended_decimal mod = {0};
 
   uint8_t start_bit = get_start_bit_extended_decimal(value);
@@ -16,7 +16,7 @@ void overflow_round(s21_extended_decimal value, s21_extended_decimal* result) {
   copy_extended_decimal(value, result);
 }
 
-void round_to_int(s21_extended_decimal* value, int8_t type) {
+void round_to_int(s21_extended_decimal *value, int8_t type) {
   s21_extended_decimal mod = {0};
 
   while (value->bytes[BIG_EXP] > 0 && !extended_decimal_is_zero(*value)) {
@@ -26,7 +26,8 @@ void round_to_int(s21_extended_decimal* value, int8_t type) {
   switch_round(value, mod, type);
 }
 
-void div10_and_record_mod10(s21_extended_decimal* value, s21_extended_decimal* mod) {
+void div10_and_record_mod10(s21_extended_decimal *value,
+                            s21_extended_decimal *mod) {
   int8_t record_not_zero_mod = mod->bytes[25];
   mod10_extended_decimal(*value, mod);
   div10_extended_decimal(value);
@@ -37,7 +38,8 @@ void div10_and_record_mod10(s21_extended_decimal* value, s21_extended_decimal* m
   mod->bytes[25] = record_not_zero_mod;
 }
 
-void switch_round(s21_extended_decimal* value, s21_extended_decimal mod, int8_t type) {
+void switch_round(s21_extended_decimal *value, s21_extended_decimal mod,
+                  int8_t type) {
   if (type == FLOOR) {
     floor_round(value, mod);
   } else if (type == BANK) {
@@ -47,7 +49,7 @@ void switch_round(s21_extended_decimal* value, s21_extended_decimal mod, int8_t 
   }
 }
 
-void bank_round(s21_extended_decimal* value, s21_extended_decimal mod) {
+void bank_round(s21_extended_decimal *value, s21_extended_decimal mod) {
   if (mod.bits[0] == 5 && mod.bytes[25] == 1) {
     if (value->bytes[0] & 1) {
       extended_decimal_plus_one(value);
@@ -57,13 +59,13 @@ void bank_round(s21_extended_decimal* value, s21_extended_decimal mod) {
   }
 }
 
-void math_round(s21_extended_decimal* value, s21_extended_decimal mod) {
+void math_round(s21_extended_decimal *value, s21_extended_decimal mod) {
   if (mod.bits[0] > 4) {
     extended_decimal_plus_one(value);
   }
 }
 
-void floor_round(s21_extended_decimal* value, s21_extended_decimal mod) {
+void floor_round(s21_extended_decimal *value, s21_extended_decimal mod) {
   if (value->bytes[BIG_SIGN] == NEGATIVE && mod.bits[0] > 0) {
     extended_decimal_plus_one(value);
   }
