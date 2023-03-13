@@ -84,9 +84,6 @@ double normalize(float src, int *scale) {
   if (whole_part_size > FLOAT_DIGITS) {
     int diff = whole_part_size - FLOAT_DIGITS;
     whole_part = round(whole_part / pow(power, diff)) * pow(power, diff);
-  } else if (whole_part_size == FLOAT_DIGITS + 1) {
-    whole_part = roundf(whole_part / 10.0L);
-    *scale -= 1;
   }
 
   return whole_part;
