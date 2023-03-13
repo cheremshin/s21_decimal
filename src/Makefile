@@ -35,7 +35,7 @@ LIB_SRCS = $(addprefix $(LIB_DIR),arithmetic_conditions.c \
 
 ## Make array of all test files
 TEST_SRCS = $(addprefix $(TEST_DIR)coverage_test/,s21_tests.c \
-												  verter_tests.c \
+												  s21_verter_tests.c \
 												  s21_arithmetic_tests.c \
 												  s21_comparison_tests.c \
 												  s21_other_functions_tests.c \

@@ -120,5 +120,6 @@ uint8_t get_start_bit_extended_decimal(s21_extended_decimal value);
 void set_status(s21_extended_decimal big_result, s21_decimal* result,
                 int8_t* status);
 
+void output_big(s21_extended_decimal value);
 
 #endif  // LIB_EXTENDED_DECIMAL_H

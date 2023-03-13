@@ -25,11 +25,11 @@ void mul_extended_decimal(s21_extended_decimal value_1, s21_extended_decimal val
   mantissa_set_default(result);
 
   for (int16_t i = get_start_bit_extended_decimal(value_2); i >= 0; i--) {
-    (value_2.bits[0] & 1) ? sum_extended_decimal(value_1, *result, result) : NULL;
+    if (value_2.bits[0] & 1) sum_extended_decimal(value_1, *result, result);
     left_offset_extended_decimal(&value_1, 1);
     right_offset_extended_decimal(&value_2, 1);
   }
-  result->bytes[BIG_EXP] = result->bytes[BIG_EXP] + result->bytes[BIG_EXP];
+  result->bytes[BIG_EXP] = value_1.bytes[BIG_EXP] + value_2.bytes[BIG_EXP];
 }
 
 void div_extended_decimal(s21_extended_decimal value_1, s21_extended_decimal value_2,
