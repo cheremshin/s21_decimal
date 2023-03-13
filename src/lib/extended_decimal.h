@@ -41,7 +41,6 @@ typedef union s21_extended_decimal {
   clear_trailing_zeros(&big_result);                      \
   extended_decimal_to_decimal(big_result, result);
 
-// Math operators
 
 void sum_extended_decimal(s21_extended_decimal value_1, s21_extended_decimal value_2,
                      s21_extended_decimal* result);
@@ -54,7 +53,6 @@ void div_extended_decimal(s21_extended_decimal value_1, s21_extended_decimal val
 void mod_extended_decimal(s21_extended_decimal value_1, s21_extended_decimal value_2,
                      s21_extended_decimal* result);
 
-// Conditions
 
 int8_t sum_conditions(s21_decimal value_1, s21_decimal value_2,
                       s21_decimal* result);
@@ -64,12 +62,10 @@ int8_t div_conditions(s21_decimal value_1, s21_decimal value_2,
                       s21_decimal* result);
 int8_t mod_conditions(s21_decimal value_2);
 
-// Sign distribution
 
 void add_set_sign(s21_extended_decimal value_1, s21_extended_decimal value_2,
                            s21_extended_decimal* result);
 
-// Additional math operators
 
 void int_division(s21_extended_decimal* value_1, s21_extended_decimal value_2,
               s21_extended_decimal* result);
@@ -80,7 +76,6 @@ void div10_extended_decimal(s21_extended_decimal* value);
 void mul10_extended_decimal(s21_extended_decimal* value);
 void mod10_extended_decimal(s21_extended_decimal value, s21_extended_decimal* result);
 
-// Assignment
 
 void extended_decimal_to_decimal(s21_extended_decimal value_1, s21_decimal* value_2);
 void decimal_to_extended_decimal(s21_decimal value_1, s21_extended_decimal* value_2);
@@ -88,7 +83,6 @@ void copy_extended_decimal(s21_extended_decimal value_1, s21_extended_decimal* v
 void inverse_extended_decimal(s21_extended_decimal* value);
 void mantissa_set_default(s21_extended_decimal* value);
 
-// Comparison
 
 int8_t byte_comparison_extended_decimal(s21_extended_decimal num1, s21_extended_decimal num2,
                                    int8_t indent);
@@ -98,7 +92,6 @@ int8_t extended_decimal_is_zero(s21_extended_decimal num);
 int8_t extended_decimal_is_less(s21_extended_decimal num1, s21_extended_decimal num2);
 int8_t extended_decimal_is_equal(s21_extended_decimal num1, s21_extended_decimal num2);
 
-// Round
 
 void overflow_round(s21_extended_decimal value, s21_extended_decimal* result);
 void div10_and_record_mod10(s21_extended_decimal* value, s21_extended_decimal* mod);
@@ -108,7 +101,6 @@ void bank_round(s21_extended_decimal* value, s21_extended_decimal mod);
 void math_round(s21_extended_decimal* value, s21_extended_decimal mod);
 void floor_round(s21_extended_decimal* value, s21_extended_decimal mod);
 
-// Bit offset
 
 void cast_to_one_exp(s21_extended_decimal* value_1, s21_extended_decimal* value_2);
 void right_offset_extended_decimal(s21_extended_decimal* value, uint8_t size_offset);
@@ -116,10 +108,8 @@ void left_offset_extended_decimal(s21_extended_decimal* value, uint8_t size_offs
 void clear_trailing_zeros(s21_extended_decimal* value_1);
 uint8_t get_start_byte_extended_decimal(s21_extended_decimal value);
 uint8_t get_start_bit_extended_decimal(s21_extended_decimal value);
-
 void set_status(s21_extended_decimal big_result, s21_decimal* result,
                 int8_t* status);
 
-void output_big(s21_extended_decimal value);
 
 #endif  // LIB_EXTENDED_DECIMAL_H

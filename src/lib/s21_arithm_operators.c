@@ -54,7 +54,3 @@ int s21_mod(s21_decimal value_1, s21_decimal value_2, s21_decimal *result) {
 
   return status;
 }
-
-void math_operation() {
-
-}

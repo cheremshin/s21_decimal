@@ -33,16 +33,3 @@ int get_number_of_digits(int value) {
   return (value == 0) ? 1 : log10(value) + 1;
 }
 
-void output_big(s21_extended_decimal value) {
-  for (int i = 6; i >= 0; i--) {
-    for (int j = 0; j < 32; j++) {
-      uint32_t tmp = value.bits[i] << j;
-      tmp >>= 31;
-      printf("%d", tmp);
-    }
-    printf(" ");
-  }
-  printf("exp=%d   ", value.bytes[BIG_EXP]);
-  printf("sign=%d", value.bytes[BIG_SIGN]);
-  printf("\n");
-}
