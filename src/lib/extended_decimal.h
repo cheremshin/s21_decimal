@@ -60,7 +60,8 @@ int8_t mul_conditions(s21_decimal value_1, s21_decimal value_2,
                       s21_decimal* result);
 int8_t div_conditions(s21_decimal value_1, s21_decimal value_2,
                       s21_decimal* result);
-int8_t mod_conditions(s21_decimal value_2);
+int8_t mod_conditions(s21_decimal value_1, s21_decimal value_2, 
+                      s21_decimal *result);
 
 
 void add_set_sign(s21_extended_decimal value_1, s21_extended_decimal value_2,

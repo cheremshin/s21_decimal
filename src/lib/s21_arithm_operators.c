@@ -44,7 +44,7 @@ int s21_div(s21_decimal value_1, s21_decimal value_2, s21_decimal *result) {
 
 int s21_mod(s21_decimal value_1, s21_decimal value_2, s21_decimal *result) {
   s21_extended_decimal big_value_1 = {0}, big_value_2 = {0}, big_result = {0};
-  int8_t status = mod_conditions(value_2);
+  int8_t status = mod_conditions(value_1, value_2, result);
 
   if (status == 0) {
     MATH_OPERATION(MOD);
